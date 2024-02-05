@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script defer src="/static/js/password.js"></script>
+    <title>Online Store</title>
+    <link rel="stylesheet" href="/static/css/style.css">
+    <!-- Handle JQuery -->
+    <script type="text/javascript" src="https://code.jquery.com/jquery-1.7.1.min.js"></script>
+    {% block header %}{% endblock %}
+</head>
+<body>
+    <nav class="navbar">
+        <div class="navbar-container">
+            <a class="logo" href="/shop">DETI Memorabilia</a>
+            <ul class="nav-links">
+                {% if IsLogged %}
+                    <li><a href="/shop">Shop</a></li>
+                    <li><a href="/cart">Cart</a></li>
+                    <li><a href="/profile">Profile</a></li>
+                    <li><a href="/logout">Logout</a></li>
+                {% else %}
+                    <li><a href="/register">Register</a></li>
+                    <li><a href="/login">Login</a></li>
+                    <li><a href="/shop">Shop</a></li>
+                    <li><a href="/cart">Cart</a></li>
+                    <li><a href="/profile">Profile</a></li>
+                {% endif %}
+            </ul>
+        </div>
+    </nav>
+    <div class="content">
+            {% block content %}{% endblock %}
+    </div>
+</body>
+</html>

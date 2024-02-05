@@ -1,0 +1,39 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container">
+    <h1>Two-Factor Authentication</h1>
+    <form method="POST" action="/verify_two_factor_auth">
+        <div>
+            <input type="hidden" name="username" value="{{ username }}">
+            <label for="otp_code">Enter your OTP code:</label>
+            <input type="text" id="otp_code_format" oninput="insertSpace(this)" maxlength="7" required>
+            <input type="hidden" id="otp_code" name="otp_code">
+            <img class="tooltip" src="/static/images/question_mark.png" height="17px" style="position: relative; top: 3px;" title="Please enter 6 digits (e.g., 123 456).">
+        </div>
+        {% if error is defined %}
+            <span class="password-error">{{error}}</span>
+        {% endif %}
+        <div style="margin-top:2%;">
+            <button type="submit">Submit</button>
+        </div>
+    </form>
+</div>
+
+<script>
+    function insertSpace(input) {
+        var value = input.value;
+        // Remove all non-digit characters
+        var cleanValue = value.replace(/\D+/g, '');
+        // Insert space after 3rd digit
+        if (cleanValue.length > 3) {
+            input.value = cleanValue.substring(0,3) + ' ' + cleanValue.substring(3,6);
+        } else {
+            input.value = cleanValue;
+        }
+
+        // Update the hidden input with the clean value (without spaces)
+        document.getElementById('otp_code').value = cleanValue;
+    }
+</script>
+{% endblock %}

@@ -1,0 +1,120 @@
+{% extends 'base.html' %}
+{% block header %}
+<link rel="stylesheet" type="text/css" href="/static/css/reviews.css">
+{% endblock %}
+{% block content %}
+    <div class="container">
+        <h2>Product Details</h2>
+        <div style="text-align: center;">
+            <img src="{{ product['image'] }}" alt="">
+        </div>
+        <h3>{{ product['name'] | safe}}</h3>
+        <p>Description: {{ product['description'] | safe }}.</p>
+        {% if avg_rating is defined %}
+        <p>{{avg_rating|round(1)}}
+            {% for n in range(avg_rating|int) %}
+            <span class="star">&#9733;</span>
+            {% endfor %}
+            {% for n in range(5-avg_rating|int) %}
+            <span class="star">&#9734;</span>
+            {% endfor %}
+        </p>
+        {% endif %}
+        <p>Price: {{ product['price'] | safe }}€</p>
+        {% if product['category'] == 'Clothing' %}
+            <div>
+                <form action="/shop/product/add_to_cart" method="post">
+                    <label for="size">Select Size:</label>
+                    <select id="size" name="size">
+                        {% for size, stock in product.stock %}
+                            {% if stock > 0 %}
+                                <option value="{{ size }}">{{ size | safe }} ({{ stock | safe }} in stock)</option>
+                            {% else %}
+                                <option value="{{ size }}" disabled>{{ size | safe}} (Out of stock)</option>
+                            {% endif %}
+                        {% endfor %}
+                    </select>
+                    <input type="hidden" name="id" value="{{ product.id }}">
+                    <button type="submit">Add to Cart</button>
+                </form>
+            </div>
+        {% else %}
+            {% if product.stock > 0 %}
+                <p>In Stock: {{ product.stock | safe }}</p>
+                <div>
+                    <form action="/shop/product/add_to_cart" method="POST">
+                        <input type="hidden" name="id" value="{{ product['id'] }}">
+                        <button type="submit">Add to cart</button>
+                    </form>
+                <div>
+            {% else %}
+                <p>Out of Stock</p>
+                <a href="/shop">
+                    <button type="submit" disabled>Add to cart</button>
+                </a>
+            {% endif %}
+        {% endif %}
+        <!-- Reviews Section -->
+        {% if item_reviews is defined %}
+        <div class="product_review">
+            <h2>Product Reviews</h2>
+            <ul class="reviews-list">
+                {% for review in item_reviews %}
+                <li class="review">
+                    <div class="review-header">
+                        <h3 type="text" name="user">{{review['user']}}</h3>
+                        <div class="rating">
+                            {% for n in range(review['rating']) %}
+                            <span class="star">&#9733;</span>
+                            {% endfor %}
+                            {% for n in range(5-review['rating']) %}
+                            <span class="star">&#9734;</span>
+                            {% endfor %}
+                        </div>
+                    </div>
+                    <p class="review-text">
+                        {{review['review']}}
+                    </p>
+                    {% if review['user'] == user %}
+                    <!-- Edit and Delete buttons -->
+                    <form method="POST" action="/product/delete_review?id={{ product['id'] }}&user={{ user }}">
+                        <div class="review-actions">
+                            <button type="submit" class="review-delete">Delete</button>
+                        </div>
+                    </form>
+                    {% endif %}
+                </li>
+                {% endfor %}
+            </ul>
+            {% if (item_reviews|length) > 3 %}
+            <div class="show-more-block">
+                <span class="show-more" data-toggle="more">Show more</span>
+            </div>
+            {% endif %}
+        </div> 
+        {% endif %}      
+        {% if has_reviewed==false %}
+        <div class="add-review">
+            <h2>Add a Review</h2>
+            <form method="post" action="/product/add_review?id={{ product['id'] }}">
+                <br>
+                <label for="rating">Rating:</label>
+                <select type="number" name="rating" min="1" max="5" required>
+                    <option value="" selected disabled hidden>Rate here...</option>
+                    <option value="1">1</option>
+                    <option value="2">2</option>
+                    <option value="3">3</option>
+                    <option value="4">4</option>
+                    <option value="5">5</option>
+                </select>
+                <br>
+                <label for="review">Review:</label>
+                <textarea name="review" rows="4" required></textarea>
+                <br>
+                <button type="submit">Submit Review</button>
+            </form>
+        </div>
+        {% endif %} 
+    </div>
+    <script src="/static/js/reviews.js"></script>
+{% endblock %}

@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+{% block header %}
+<script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/3.1.9-1/crypto-js.min.js"></script>
+{% endblock %}
+{% block content %}
+    <div class="form-container">
+        <div class="form-header">
+            <h2>User Login</h2>
+        </div>
+        <form action="/login" method="POST">
+            <div class="form-group">
+                <label class="form-label" for="username">Username:</label>
+                <input class="form-input" type="text" id="username" name="username" required>
+            </div>
+            <div class="form-group">
+                <label class="form-label" for="password">Password:</label>
+                <input class="form-input" type="password" id="password" name="password" onpaste="return true;" oninput="checkBreach(this.value)" autocomplete="current-password" required>
+                <span id="togglePassword" onclick="togglePasswordField()" style="display: block; height: 30px; cursor: pointer; text-decoration: underline;">Show Password</span>
+                {% if error is defined %}
+                    <div>
+                        <span class="password-error" id="p_error">{{error}}</span>
+                    </div>
+                {% else %}
+                <span class="password-error" id="p_error"></span>
+                {% endif %}
+            </div>
+            <button class="submit-button" type="submit">Login</button>
+        </form>
+    </div>
+{% endblock %}

@@ -1,0 +1,58 @@
+{% extends 'base.html' %}
+{% block header %} 
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/zxcvbn/4.4.2/zxcvbn.js"></script>
+{% endblock %}
+{% block content %}
+<div class="container"> 
+    <h2>User Profile</h2>
+    <img src="{{ user.picture }}" alt="Profile Image" class="profile-image">
+    <p>Username: {{ user.username }}</p>
+    <p>Email: {{ user.email }}</p>
+
+    <div>
+        <h2 style="margin-top: 7%;">Password Management</h2>
+        <form action="/profile/change_password/" method="POST">
+            <div class="form-group">
+                <label class="form-label" for="current_password">Current Password:</label>
+                <input class="form-input" type="password" id="current_password" name="current_password" required>
+            </div>
+            <div class="form-group">
+                <label class="form-label" for="new_password">New Password:</label>
+                <input class="form-input" type="password" id="new_password" name="new_password" oninput="preventConsecutiveSpaces(this); is_confirmed()" required>
+            </div>
+            <div class="form-group">
+                <label class="form-label" for="confirm_password">Confirm New Password:</label>
+                <input class="form-input" type="password" id="confirm_password" name="confirm_password" oninput="preventConsecutiveSpaces(this); is_confirmed()" required>
+                {% if error is defined %}
+                    <span class="password-error">{{error}}</span>
+                {% endif %}
+                <p>Password Strength: <span id="passwordStrength"> </span></p>
+            </div>
+            <button class="submit-button" type="submit">Change Password</button>
+        </form>
+    <div>
+        <div>
+            <h2 style="margin-top: 7%;">Upload New Profile Picture</h2>
+            <form action="/profile/upload_pic/" method="POST" enctype="multipart/form-data">
+                <div class="form-group">
+                    <label class="form-label" for="profile_picture">Select a profile picture:</label>
+                    <input class="form-input" type="file" id="profile_picture" name="profile_picture" accept="image/*">
+                </div>
+                {% if upload_error is defined %}
+                    <span class="password-error">{{upload_error}}</span>
+                {% endif %}
+                <div style="margin-bottom: 1%;">
+                    <small class="form-text text-muted">
+                        <u>
+                            Max file size: 500Kb. Accepted file extensions: .png, .jpg, .jpeg.
+                        </u>
+                    </small>
+                </div>
+                <div> 
+                    <button class="submit-button" type="submit">Upload</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}

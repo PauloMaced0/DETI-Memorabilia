@@ -1,0 +1,99 @@
+/* Styling for the review section */
+.product_review {
+    background-color: #f5f5f5;
+    border: 1px solid #ddd;
+    padding: 20px;
+    margin-top: 20px;
+}
+
+.product_review h2 {
+    font-size: 24px;
+    margin-bottom: 10px;
+}
+
+.reviews-list {
+    list-style: none;
+    padding: 0;
+}
+
+.review {
+    background-color: #fff;
+    border: 1px solid #ddd;
+    margin-bottom: 15px;
+    padding: 15px;
+}
+
+.review-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+.review-header h3 {
+    font-size: 18px;
+    margin: 0;
+}
+
+.rating {
+    font-size: 20px;
+}
+
+.star {
+    color: #ffac00; /* Color for filled stars */
+}
+
+.review-text {
+    font-size: 16px;
+}
+
+/* Styling for the filled star */
+.star {
+    color: #ffac00; /* Color for filled stars */
+    margin-right: 5px;
+}
+
+.reviews-list li:nth-child(n+4) {
+    display: none;
+}
+
+/* Show more styling */
+.show-more-block{
+    text-align: center;
+}
+.show-more {
+    text-decoration: underline;
+    cursor: pointer;
+    color: blue;
+}
+
+
+.review {
+    /* Container styles for each review */
+    position: relative;
+    padding: 15px;
+    border: 1px solid #ddd;
+    margin-bottom: 15px;
+}
+
+
+.review-actions {
+    /* Container for the edit and delete buttons */
+    position: absolute;
+    bottom: 6px; /* Adjust the distance from the bottom as needed */
+    right: 10px; /* Adjust the distance from the right as needed */
+}
+
+.review-delete {
+    /* Styles for the edit and delete buttons */
+    background-color: none;
+    color: hsl(0, 100%, 70%);
+    border: none;
+    padding: 5px 10px;
+    cursor: pointer;
+}
+
+.review-delete:hover {
+    /* Hover styles for the buttons */
+    background-color: darkred;
+}

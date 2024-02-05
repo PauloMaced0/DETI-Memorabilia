@@ -1,0 +1,35 @@
+{% extends 'base.html' %}
+
+{% block title %}Products{% endblock %}
+
+{% block content %}
+    <div class="shop_header">
+        <div>
+            <h1>Welcome to the Online Store</h1>
+        </div>
+        <div>
+            <form class="search-form" action="/shop/search" method="GET">
+                <input type="text" name="query" placeholder="Search products...">
+                <button type="submit">Search</button>
+            </form>
+        </div>
+    </div>
+    {% if query %}
+    <div id="searchResult">
+        <p>Search results: {{ query }}</p>
+    </div>
+    {% endif %}
+    <div class="product_container">
+        {% for product in products %}
+        <div class="product">
+            <a href="/shop/product?id={{product['id']}}">
+                <div style="width: 180px; height: 220px; margin: 0 auto;">
+                    <img src="{{ product['image'] }}" alt="Couldn't find {{ product['name'] }}">
+                </div>
+                <h3>{{ product['name'] | safe }}</h3>
+            </a>
+            <p>Price: {{ product['price'] | safe }}€</p>
+        </div>
+        {% endfor %}
+    </div>
+{% endblock %}

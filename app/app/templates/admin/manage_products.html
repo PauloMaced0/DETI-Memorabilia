@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <h1>Manage Stock</h1>
+    <div>
+        <a href="/manage_stock">
+            <button type="submit">Add product</button>
+        </a>
+    </div>
+    <div class="product_container">
+        {% for product in products %}
+        <div class="product">
+            <a href="/shop/product?id={{product['id']}}">
+                <div style="width: 180px; height: 220px;">
+                    <img src="{{ product['image'] }}" alt="Couldn't find {{ product['name'] }}">
+                </div>
+                <h3>{{ product['name'] }}</h3>
+                <p>Description: bla bla bla</p>
+            </a>
+            <p>Price: ${{ product['price'] }}</p>
+<!-- Maybe add the option to edit details of the product <button>Edit</button> -->
+        </div>
+        {% endfor %}
+    </div>
+{% endblock %}

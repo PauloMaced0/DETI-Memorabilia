@@ -1,0 +1,6 @@
+venv/
+app/__pycache__/
+app/database/online_shop.db
+app/static/images/profile/*
+!app/static/images/profile/default.jpg
+app/static/images/otp/*

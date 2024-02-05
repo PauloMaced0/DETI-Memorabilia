@@ -1,0 +1,3 @@
+database/online_shop.db
+static/images/profile/*
+!static/images/profile/default.jpg
