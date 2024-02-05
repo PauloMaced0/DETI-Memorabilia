@@ -38,34 +38,34 @@ The shop should be the one-stop destination for DETI memorabilia at the Universi
 
 ## Features 
 
-## 1. Authentication and Session Management
+### 1. Authentication and Session Management
 
 - Implement Multi-factor Authentication (MFA) using methods like TOTP, OAuth 2.0 + OIDC, or FIDO/FIDO2.
 - Strengthen password policies (e.g., minimum length, complexity requirements).
 - Secure session management (e.g., secure cookies, session timeouts).
 
-## 2. Input Validation and Output Encoding
+### 2. Input Validation and Output Encoding
 
 - Implement robust input validation to prevent injection attacks (e.g., SQL injection, Cross-site Scripting).
 - Use output encoding to prevent Cross-site Scripting (XSS).
 
-## 3. Data Protection
+### 3. Data Protection
 
 - Encrypt sensitive data both in transit (using HTTPS) and at rest (in databases).
 
-## 4. Error Handling and Logging
+### 4. Error Handling and Logging
 
 - Ensure secure and informative error handling that doesn’t reveal sensitive information.
 
-## 5. System Robustness
+### 5. System Robustness
 
 - Harden servers and databases against attacks.
 
-## 6. File and Resource Handling
+### 6. File and Resource Handling
 
 - Implement secure file upload handling (e.g., file type restrictions, size limits).
 
-## 9. API and Web Service Security
+### 9. API and Web Service Security
 
 - Use tokens (e.g., JWT) for secure API authentication.
 
